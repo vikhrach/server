@@ -8,7 +8,6 @@ logger = logging.getLogger()
 
 HOST = "localhost"
 PORT = 8080
-DOCUMENT_ROOT = "./www"
 
 
 def handle_request(client_socket):

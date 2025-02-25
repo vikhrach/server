@@ -16,6 +16,14 @@ jobs:
         uses: abatilo/actions-poetry@v2.0.0
         with:
           poetry-version: 1.8.4
+      - name: Install packages
+        run: |
+         apt-get update && apt-get install git build-essential unzip libssl-dev -y
+      
+      - name: Install wrk
+        run: |
+         git clone https://github.com/wg/wrk.git wrk && cd wrk && make
+
       - name: Install dependencies
         run: poetry install
       - name: Run linter flake8
@@ -25,9 +33,7 @@ jobs:
       - name: Run server
         run: |
           nohup poetry run python server.py &
-          
-      - name: Build test container
-        run: docker build -t benchmark-image -f docker/benchmark.Dockerfile
-       
-      - name: Run test container
-        run: docker run benchmark-image
+
+      - name: Run wrk
+        run: |
+         ./wrk -t10 -c10 http://127.0.0.1:8080/
