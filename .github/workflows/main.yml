@@ -18,7 +18,7 @@ jobs:
           poetry-version: 1.8.4
       - name: Install packages
         run: |
-         sudo apt-get update && apt-get install git build-essential unzip libssl-dev -y
+         sudo apt-get update && sudo apt-get install git build-essential unzip libssl-dev -y
       
       - name: Install wrk
         run: |
