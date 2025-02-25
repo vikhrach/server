@@ -1,16 +1,16 @@
-import socket
-import threading
-import os
 import logging
+import socket
 import sys
-import time
+import threading
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 logger = logging.getLogger()
 
 HOST = "localhost"
 PORT = 8080
-DOCUMENT_ROOT='./www'
+DOCUMENT_ROOT = "./www"
+
+
 def handle_request(client_socket):
     try:
         # 1. get request
@@ -19,8 +19,6 @@ def handle_request(client_socket):
         # Split the request into the request line, headers, and body
         request_lines = request_data.split("\r\n")
         request_line = request_lines[0]  # First line is the request line
-        headers = request_lines[1:-2]    # Lines between request line and body are headers
-        body = request_lines[-1]        # Last line is the body (if present)
 
         # Extract the request method, path, and HTTP version from the request line
         request_method, path, http_version = request_line.split(" ", 2)
@@ -29,7 +27,7 @@ def handle_request(client_socket):
         logger.info(f"HTTP Version: {http_version}")
         # 3. split headers to methoods
         # 4. give back response
-        if request_method in ['GET', 'HEAD']:
+        if request_method in ["GET", "HEAD"]:
             # Prepare a simple HTTP response
             response_body = f"Hello, client! You used the {request_method} method."
             response_headers = (
@@ -47,8 +45,8 @@ def handle_request(client_socket):
     finally:
         client_socket.close()
 
-def start_server():
 
+def start_server():
     # Create a socket object
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -58,12 +56,12 @@ def start_server():
     server_socket.listen(5)
     logging.info("Server started")
 
-    #3. in while loop create threads with fucntion for handle_request
+    # 3. in while loop create threads with fucntion for handle_request
     while True:
         client_socket, addr = server_socket.accept()
         client_handler = threading.Thread(target=handle_request, args=(client_socket,))
         client_handler.start()
 
-if __name__ == "__main__":    
+
+if __name__ == "__main__":
     start_server()
-    
