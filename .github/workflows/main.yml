@@ -26,8 +26,8 @@ jobs:
         run: |
           nohup poetry run python server.py &
           
-      -name: Build test container
-       run: docker build -t benchmark-image -f docker/benchmark.Dockerfile
+      - name: Build test container
+        run: docker build -t benchmark-image -f docker/benchmark.Dockerfile
        
-      -name: Run test container
-       run: docker run benchmark-image
+      - name: Run test container
+        run: docker run benchmark-image
