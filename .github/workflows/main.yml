@@ -22,7 +22,7 @@ jobs:
       
       - name: Install wrk
         run: |
-         sudo git clone https://github.com/wg/wrk.git wrk && cd wrk && make
+         sudo git clone https://github.com/wg/wrk.git /home/wrk && cd /home/wrk && make
 
       - name: Install dependencies
         run: poetry install
