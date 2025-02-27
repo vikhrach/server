@@ -14,20 +14,19 @@ def handle_request(client_socket):
     try:
         # 1. get request
         request_data = client_socket.recv(4096).decode("utf-8")
-        # 2. get hedares
-        # Split the request into the request line, headers, and body
+        
+        # 2. split the request into the request line, headers, and body
         request_lines = request_data.split("\r\n")
-        request_line = request_lines[0]  # First line is the request line
+        request_line = request_lines[0]
 
-        # Extract the request method, path, and HTTP version from the request line
+        # 3. split headers to methoods
         request_method, path, http_version = request_line.split(" ", 2)
         logger.info(f"\nRequest Method: {request_line}")
         logger.info(f"Path: {path}")
         logger.info(f"HTTP Version: {http_version}")
-        # 3. split headers to methoods
+
         # 4. give back response
         if request_method in ["GET", "HEAD"]:
-            # Prepare a simple HTTP response
             response_body = f"Hello, client! You used the {request_method} method."
             response_headers = (
                 "HTTP/1.1 200 OK\r\n"
