@@ -13,7 +13,7 @@ PORT = 8080
 def handle_request(client_socket):
     try:
         # 1. get request
-        request_data = client_socket.recv(4096).decode("utf-8")        
+        request_data = client_socket.recv(4096).decode("utf-8")
         # 2. split the request into the request line, headers, and body
         request_lines = request_data.split("\r\n")
         request_line = request_lines[0]
